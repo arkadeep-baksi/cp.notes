@@ -20,20 +20,126 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
         }
 
         h1 {
             color: #58a6ff;
             margin-bottom: 10px;
-            font-size: 2em;
+            font-size: 2.5em;
         }
 
         .subtitle {
             color: #8b949e;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px 20px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+
+        .toc-section {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toc-title {
+            color: #58a6ff;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .toc-item {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: #58a6ff;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .toc-item:hover {
+            background-color: #1c2128;
+            border-color: #58a6ff;
+        }
+
+        .toc-count {
+            background-color: #30363d;
+            color: #8b949e;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.85em;
+        }
+
+        .topic-section {
+            margin-bottom: 50px;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .topic-title {
+            color: #58a6ff;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topic-stats {
+            color: #8b949e;
+            font-size: 0.9em;
         }
 
         .table-wrapper {
@@ -41,6 +147,7 @@
             background-color: #161b22;
             border-radius: 6px;
             border: 1px solid #30363d;
+            margin-bottom: 15px;
         }
 
         table {
@@ -130,46 +237,45 @@
             font-size: 0.9em;
         }
 
-        .add-btn {
-            background-color: #238636;
-            color: white;
+        .btn {
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            margin-bottom: 20px;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .add-btn:hover {
+        .btn-primary {
+            background-color: #238636;
+            color: white;
+        }
+
+        .btn-primary:hover {
             background-color: #2ea043;
         }
 
-        .stats {
+        .btn-secondary {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #30363d;
+        }
+
+        .button-group {
             display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .stat-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 15px 20px;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #58a6ff;
-        }
-
-        .stat-label {
+        .empty-state {
+            text-align: center;
+            padding: 40px;
             color: #8b949e;
-            font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
@@ -177,153 +283,247 @@
                 padding: 10px;
             }
 
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .topic-title {
+                font-size: 1.4em;
+            }
+
             th, td {
                 padding: 8px 12px;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Competitive Programming Notes</h1>
-        <p class="subtitle">Problem tracking and solutions archive</p>
+        <header>
+            <h1>🚀 Competitive Programming Notes</h1>
+            <p class="subtitle">Problem tracking and solutions archive - organized by topics</p>
 
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="totalProblems">0</div>
-                <div class="stat-label">Total Problems</div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProblems">0</div>
+                    <div class="stat-label">Total Problems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="solvedProblems">0</div>
+                    <div class="stat-label">Solved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTopics">0</div>
+                    <div class="stat-label">Topics</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="successRate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="solvedProblems">0</div>
-                <div class="stat-label">Solved</div>
+        </header>
+
+        <div class="toc-section">
+            <div class="toc-title">
+                📚 Table of Contents
+                <button class="btn btn-primary" onclick="addTopic()" style="margin-left: auto; padding: 8px 16px; font-size: 13px;">+ Add Topic</button>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="successRate">0%</div>
-                <div class="stat-label">Success Rate</div>
+            <div class="toc-grid" id="tableOfContents">
+                <!-- TOC items will be generated here -->
             </div>
         </div>
 
-        <button class="add-btn" onclick="addProblem()">+ Add Problem</button>
-
-        <div class="table-wrapper">
-            <table id="problemTable">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Problem</th>
-                        <th>Platform</th>
-                        <th>Difficulty</th>
-                        <th>Status</th>
-                        <th>Tags</th>
-                        <th>Notes</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="problemList">
-                    <!-- Sample data -->
-                    <tr>
-                        <td>1</td>
-                        <td><a href="https://codeforces.com/problemset/problem/1/A" class="problem-link" target="_blank">Theatre Square</a></td>
-                        <td>Codeforces</td>
-                        <td><span class="difficulty easy">Easy</span></td>
-                        <td><span class="status solved">Solved</span></td>
-                        <td><span class="tags">Math, Implementation</span></td>
-                        <td>Simple ceiling division problem</td>
-                        <td>2024-01-15</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="https://leetcode.com/problems/two-sum/" class="problem-link" target="_blank">Two Sum</a></td>
-                        <td>LeetCode</td>
-                        <td><span class="difficulty easy">Easy</span></td>
-                        <td><span class="status solved">Solved</span></td>
-                        <td><span class="tags">Array, Hash Table</span></td>
-                        <td>Use hashmap for O(n) solution</td>
-                        <td>2024-01-16</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><a href="https://codeforces.com/problemset/problem/4/C" class="problem-link" target="_blank">Registration System</a></td>
-                        <td>Codeforces</td>
-                        <td><span class="difficulty medium">Medium</span></td>
-                        <td><span class="status attempted">Attempted</span></td>
-                        <td><span class="tags">Data Structures, Strings</span></td>
-                        <td>Map-based counting</td>
-                        <td>2024-01-17</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div id="topicsContainer">
+            <!-- Topic sections will be generated here -->
         </div>
     </div>
 
     <script>
-        let problems = [
-            {
-                problem: "Theatre Square",
-                url: "https://codeforces.com/problemset/problem/1/A",
-                platform: "Codeforces",
-                difficulty: "easy",
-                status: "solved",
-                tags: "Math, Implementation",
-                notes: "Simple ceiling division problem",
-                date: "2024-01-15"
-            },
-            {
-                problem: "Two Sum",
-                url: "https://leetcode.com/problems/two-sum/",
-                platform: "LeetCode",
-                difficulty: "easy",
-                status: "solved",
-                tags: "Array, Hash Table",
-                notes: "Use hashmap for O(n) solution",
-                date: "2024-01-16"
-            },
-            {
-                problem: "Registration System",
-                url: "https://codeforces.com/problemset/problem/4/C",
-                platform: "Codeforces",
-                difficulty: "medium",
-                status: "attempted",
-                tags: "Data Structures, Strings",
-                notes: "Map-based counting",
-                date: "2024-01-17"
-            }
-        ];
+        let topics = {
+            "Dynamic Programming": [
+                {
+                    problem: "Fibonacci Numbers",
+                    url: "https://codeforces.com/problemset/problem/1/A",
+                    platform: "Codeforces",
+                    difficulty: "easy",
+                    status: "solved",
+                    tags: "DP, Math",
+                    notes: "Basic DP problem",
+                    date: "2024-01-15"
+                },
+                {
+                    problem: "Longest Increasing Subsequence",
+                    url: "https://leetcode.com/problems/longest-increasing-subsequence/",
+                    platform: "LeetCode",
+                    difficulty: "medium",
+                    status: "solved",
+                    tags: "DP, Binary Search",
+                    notes: "O(n log n) solution using binary search",
+                    date: "2024-01-16"
+                }
+            ],
+            "Graphs": [
+                {
+                    problem: "DFS and BFS",
+                    url: "https://codeforces.com/problemset/problem/580/C",
+                    platform: "Codeforces",
+                    difficulty: "medium",
+                    status: "attempted",
+                    tags: "Graph, DFS, Trees",
+                    notes: "Tree traversal with constraints",
+                    date: "2024-01-17"
+                }
+            ],
+            "Data Structures": [
+                {
+                    problem: "Range Sum Query",
+                    url: "https://leetcode.com/problems/range-sum-query-mutable/",
+                    platform: "LeetCode",
+                    difficulty: "medium",
+                    status: "unsolved",
+                    tags: "Segment Tree, Fenwick Tree",
+                    notes: "Need to learn segment trees",
+                    date: "2024-01-18"
+                }
+            ]
+        };
 
         function updateStats() {
-            const total = problems.length;
-            const solved = problems.filter(p => p.status === 'solved').length;
-            const rate = total > 0 ? Math.round((solved / total) * 100) : 0;
+            let totalProblems = 0;
+            let solvedProblems = 0;
 
-            document.getElementById('totalProblems').textContent = total;
-            document.getElementById('solvedProblems').textContent = solved;
+            Object.values(topics).forEach(problemList => {
+                totalProblems += problemList.length;
+                solvedProblems += problemList.filter(p => p.status === 'solved').length;
+            });
+
+            const rate = totalProblems > 0 ? Math.round((solvedProblems / totalProblems) * 100) : 0;
+
+            document.getElementById('totalProblems').textContent = totalProblems;
+            document.getElementById('solvedProblems').textContent = solvedProblems;
+            document.getElementById('totalTopics').textContent = Object.keys(topics).length;
             document.getElementById('successRate').textContent = rate + '%';
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('problemList');
-            tbody.innerHTML = '';
+        function generateTableOfContents() {
+            const toc = document.getElementById('tableOfContents');
+            toc.innerHTML = '';
 
-            problems.forEach((p, index) => {
-                const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td><a href="${p.url}" class="problem-link" target="_blank">${p.problem}</a></td>
-                        <td>${p.platform}</td>
-                        <td><span class="difficulty ${p.difficulty}">${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}</span></td>
-                        <td><span class="status ${p.status}">${p.status.charAt(0).toUpperCase() + p.status.slice(1)}</span></td>
-                        <td><span class="tags">${p.tags}</span></td>
-                        <td>${p.notes}</td>
-                        <td>${p.date}</td>
-                    </tr>
+            Object.keys(topics).forEach(topic => {
+                const count = topics[topic].length;
+                const solved = topics[topic].filter(p => p.status === 'solved').length;
+                const topicId = topic.toLowerCase().replace(/\s+/g, '-');
+
+                const tocItem = document.createElement('a');
+                tocItem.href = '#' + topicId;
+                tocItem.className = 'toc-item';
+                tocItem.innerHTML = `
+                    <span>${topic}</span>
+                    <span class="toc-count">${solved}/${count}</span>
                 `;
-                tbody.innerHTML += row;
+                toc.appendChild(tocItem);
+            });
+        }
+
+        function renderTopics() {
+            const container = document.getElementById('topicsContainer');
+            container.innerHTML = '';
+
+            Object.keys(topics).forEach(topic => {
+                const topicId = topic.toLowerCase().replace(/\s+/g, '-');
+                const problemList = topics[topic];
+                const solved = problemList.filter(p => p.status === 'solved').length;
+
+                const section = document.createElement('div');
+                section.className = 'topic-section';
+                section.id = topicId;
+
+                let tableRows = '';
+                if (problemList.length === 0) {
+                    tableRows = '<tr><td colspan="8" class="empty-state">No problems added yet. Click "Add Problem" to get started!</td></tr>';
+                } else {
+                    problemList.forEach((p, index) => {
+                        tableRows += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td><a href="${p.url}" class="problem-link" target="_blank">${p.problem}</a></td>
+                                <td>${p.platform}</td>
+                                <td><span class="difficulty ${p.difficulty}">${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}</span></td>
+                                <td><span class="status ${p.status}">${p.status.charAt(0).toUpperCase() + p.status.slice(1)}</span></td>
+                                <td><span class="tags">${p.tags}</span></td>
+                                <td>${p.notes}</td>
+                                <td>${p.date}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                section.innerHTML = `
+                    <div class="topic-header">
+                        <h2 class="topic-title">
+                            ${topic}
+                            <span class="topic-stats">(${solved}/${problemList.length} solved)</span>
+                        </h2>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Problem</th>
+                                    <th>Platform</th>
+                                    <th>Difficulty</th>
+                                    <th>Status</th>
+                                    <th>Tags</th>
+                                    <th>Notes</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRows}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="addProblem('${topic}')">+ Add Problem</button>
+                        <button class="btn btn-secondary" onclick="deleteTopic('${topic}')">🗑️ Delete Topic</button>
+                    </div>
+                `;
+
+                container.appendChild(section);
             });
 
+            generateTableOfContents();
             updateStats();
         }
 
-        function addProblem() {
+        function addTopic() {
+            const topicName = prompt("Enter new topic name:");
+            if (!topicName) return;
+
+            if (topics[topicName]) {
+                alert("Topic already exists!");
+                return;
+            }
+
+            topics[topicName] = [];
+            renderTopics();
+        }
+
+        function deleteTopic(topicName) {
+            if (!confirm(`Are you sure you want to delete the topic "${topicName}" and all its problems?`)) {
+                return;
+            }
+
+            delete topics[topicName];
+            renderTopics();
+        }
+
+        function addProblem(topicName) {
             const problemName = prompt("Problem name:");
             if (!problemName) return;
 
@@ -337,7 +537,7 @@
             const notes = prompt("Notes:");
             const date = new Date().toISOString().split('T')[0];
 
-            problems.push({
+            topics[topicName].push({
                 problem: problemName,
                 url: url,
                 platform: platform || "Unknown",
@@ -348,10 +548,11 @@
                 date: date
             });
 
-            renderTable();
+            renderTopics();
         }
 
-        renderTable();
+        // Initial render
+        renderTopics();
     </script>
 </body>
 </html>
